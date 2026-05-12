@@ -1,0 +1,129 @@
+.hero {
+    /* Use 100dvh to prevent mobile browser bars from cutting off the bottom */
+    min-height: 100dvh; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    position: relative;
+    /* Keeps the 'GameHub' cinematic feel within bounds */
+    overflow: hidden; 
+}
+
+.parallax-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    /* Ensure it fills the hero even if dynamic changes occur */
+    height: 100%; 
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.parallax-element {
+    position: absolute;
+    transition: transform 0.1s ease-out;
+    transform: translate(var(--px, 0px), var(--py, 0px)) scale(var(--ps, 1));
+}
+
+.floating-img {
+    border-radius: var(--radius-md);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.hero-container {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+}
+
+.hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    width: 100%;
+    overflow-x: hidden; /* Parent overflow-x: hidden as instructed */
+}
+
+.hero-title-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0 15px;
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.hero-title {
+    font-size: clamp(2.5rem, 10vw, 6rem);
+    margin-bottom: 0px;
+    line-height: 1.1;
+    letter-spacing: -2px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.rotating-word-container {
+    display: inline-flex;
+    color: var(--brand-blue);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    width: auto;
+    font-size: clamp(2.5rem, 10vw, 6rem);
+    font-weight: 700;
+}
+
+.hero-subtext {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    color: var(--text-muted);
+    margin: 32px auto;
+    max-width: 600px;
+}
+
+.hero-btns {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-15px) rotate(2deg); }
+    66% { transform: translateY(10px) rotate(-2deg); }
+}
+
+@media (max-width: 768px) {
+    .parallax-container {
+        opacity: 0.6;
+        width: 100vw;
+        left: 0;
+    }
+    
+    .parallax-element {
+        --ps: 0.4; 
+    }
+
+    /* Pull images closer to center on mobile to stop horizontal scroll triggers */
+    .parallax-element[style*="left: 85%"] { left: 65% !important; }
+    .parallax-element[style*="left: 80%"] { left: 70% !important; }
+    .parallax-element[style*="left: 5%"] { left: 15% !important; }
+
+    .parallax-element img {
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .hero-title, .rotating-word-container {
+        font-size: clamp(2.5rem, 12vw, 4.5rem);
+        letter-spacing: -1.5px;
+    }
+
+    .hero {
+        min-height: 100dvh;
+    }
+}
